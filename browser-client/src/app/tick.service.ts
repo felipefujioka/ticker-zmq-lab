@@ -10,7 +10,7 @@ export class TickService {
   server: any;
   tickStream: BehaviorSubject<any>;
 
-  constructor() { 
+  constructor() {
     this.tickStream = new BehaviorSubject({});
     this.server = this.create();
   }
@@ -18,7 +18,7 @@ export class TickService {
   create() {
     var self = this;
     var socket = IO('ws://192.168.99.100:3002');
-    
+
     socket.on('connect', this.onConnect.bind(this));
 
     socket.on('message', this.onMessage.bind(this));
@@ -33,7 +33,7 @@ export class TickService {
   }
 
   onMessage(data) {
-    this.tickStream.next(data);
+    this.tickStream.next(JSON.parse(JSON.parse(data).message));
   }
 
   onDisconnect() {

@@ -13,5 +13,5 @@ console.log('Worker connected to port 3001');
 
 sub.on('message', function(topic, message){
   console.log('received a message related to:', topic.toString(), 'containing message:', message.toString());
-  io.emit('message', {topic: topic, message: message});
+  io.emit('message', JSON.stringify({topic: topic.toString(), message: message.toString()}));
 });

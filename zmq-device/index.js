@@ -9,7 +9,7 @@ console.log('Device bound to port 3000');
 
 pub.bindSync('tcp://0.0.0.0:3001');
 
-sub.on('message', function(topic, message){
-   console.log('received a message related to:', topic.toString(), 'containing message:', message.toString());
+sub.on('message', function(topic, message) {
+   console.log('Repassing message related to:', topic.toString(), 'containing message:', message.toString());
    pub.send([topic, message]);
 });
