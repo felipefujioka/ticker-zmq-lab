@@ -12,3 +12,5 @@ services:
     build: ./zmq-device
     ports:
       - "3001:3001"
+  logger:
+    build: ./my-app

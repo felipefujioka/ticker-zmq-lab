@@ -24,6 +24,6 @@ setInterval(function() {
 
   var zmqPayloadStr = JSON.stringify(tick);
 
-  console.log('Sending tick', zmqPayloadStr);
+  // console.log('Sending tick', zmqPayloadStr);
   pub.send(['message', zmqPayloadStr]);
 }, 100);
