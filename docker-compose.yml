@@ -1,0 +1,12 @@
+version: '2'
+services:
+  ticker:
+    build: ./ticker
+    ports:
+      - "3000:3000"
+  subscriber:
+    build: ./subscriber
+  zmq-device:
+    build: ./zmq-device
+    ports:
+      - "3001:3001"
