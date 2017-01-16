@@ -32,8 +32,9 @@ export class TickService {
     this.tickStream.next("connected");
   }
 
-  onMessage(data) {
-    this.tickStream.next(JSON.parse(JSON.parse(data).message));
+  onMessage(tick) {
+    console.log(JSON.parse(tick));
+    this.tickStream.next(JSON.parse(tick));
   }
 
   onDisconnect() {
