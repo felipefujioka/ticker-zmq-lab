@@ -17,7 +17,7 @@ export class TickService {
 
   create() {
     var self = this;
-    var socket = IO('ws://192.168.99.100:3002');
+    var socket = IO('ws://192.168.99.100:3003');
 
     socket.on('connect', this.onConnect.bind(this));
 

@@ -17,8 +17,8 @@ function addRandomVariation(price) {
 
 setInterval(function() {
   var tick = {
-    "stock": 'PETR4',
-    "price": addRandomVariation(21.12),
+    "stock": 'VAL5',
+    "price": addRandomVariation(32.23),
     "timestamp": Date.now()
   }
 

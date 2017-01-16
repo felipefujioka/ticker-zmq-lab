@@ -2,15 +2,16 @@ version: '2'
 services:
   ticker:
     build: ./ticker
-    ports:
-      - "3000:3000"
+  ticker0:
+    build: ./ticker0
   broadcaster:
     build: ./broadcaster
     ports:
-      - "3002:3002"
+      - "3003:3003"
   zmq-device:
     build: ./zmq-device
     ports:
       - "3001:3001"
+      - "3002:3002"
   logger:
     build: ./my-app

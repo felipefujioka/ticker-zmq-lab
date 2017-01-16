@@ -10,7 +10,7 @@ public class App {
 
     System.out.println("Collecting updates from weather server");
     ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
-    subscriber.connect("tcp://192.168.99.100:3001");
+    subscriber.connect("tcp://192.168.99.100:3002");
 
     subscriber.subscribe("message".getBytes(ZMQ.CHARSET));
     while (!Thread.currentThread().isInterrupted()) {
