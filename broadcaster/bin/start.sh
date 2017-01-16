@@ -3,4 +3,4 @@ docker rm broadcaster-container
 
 docker build -t broadcaster-image .
 
-docker run --name broadcaster-container broadcaster-image
+docker run -p 3002:3002 --name broadcaster-container broadcaster-image
