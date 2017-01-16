@@ -4,8 +4,10 @@ services:
     build: ./ticker
     ports:
       - "3000:3000"
-  subscriber:
-    build: ./subscriber
+  broadcaster:
+    build: ./broadcaster
+    ports:
+      - "3002:3002"
   zmq-device:
     build: ./zmq-device
     ports:
