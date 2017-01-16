@@ -1,0 +1,16 @@
+{
+  "name": "broadcaster",
+  "version": "1.0.0",
+  "description": "Broadcaster of tick events to final subscribers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Felipe Jun Fujioka Shida <ffujioka@topster.com.br>",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "zeromq": "^4.1.1"
+  }
+}
