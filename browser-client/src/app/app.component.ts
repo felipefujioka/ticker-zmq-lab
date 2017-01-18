@@ -12,7 +12,9 @@ import * as _ from 'lodash';
 })
 export class AppComponent implements OnInit{
   
-  lastTick: any;
+  lastTick: any = {};
+  lastPetr4: any = {};
+  lastVale5: any = {};
   stocks: {[id: string]: any} = {};
   keys: string[] = [];
 
@@ -25,6 +27,14 @@ export class AppComponent implements OnInit{
       this.keys = Object.keys(this.stocks);
       console.log(this.keys);
       console.log(this.stocks);
+    });
+
+    this.tickService.petr4Stream.subscribe(tick => {
+      this.lastPetr4 = tick;
+    });
+
+    this.tickService.vale5Stream.subscribe(tick => {
+      this.lastVale5 = tick;
     });
   }
 

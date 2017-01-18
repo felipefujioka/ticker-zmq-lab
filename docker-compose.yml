@@ -8,6 +8,20 @@ services:
     build: ./broadcaster
     ports:
       - "3003:3003"
+    env_file:
+      - ./broadcaster/envs/generic.env
+  broadcaster-petr4:
+    build: ./broadcaster
+    ports:
+      - "3004:3004"
+    env_file:
+      - ./broadcaster/envs/petr4.env
+  broadcaster-vale5:
+    build: ./broadcaster
+    ports:
+      - "3005:3005"
+    env_file:
+      - ./broadcaster/envs/vale5.env
   zmq-proxy:
     build: ./zmq-proxy
     ports:

@@ -4,10 +4,10 @@ var zmq = require('zeromq')
 
 var io = require('socket.io')();
 io.on('connection', function(client){ });
-io.listen(3003);
+io.listen(process.env.PORT);
 
 sub.connect('tcp://192.168.99.100:3002');
-sub.subscribe('TICK');
+sub.subscribe(process.env.CHANNEL);
 
 console.log('Worker connected to port 3002');
 
