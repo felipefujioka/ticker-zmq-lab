@@ -22,10 +22,26 @@ services:
       - "3005:3005"
     env_file:
       - ./broadcaster/envs/vale5.env
-  zmq-proxy:
+  zmq-proxy-master:
     build: ./zmq-proxy
+    env_file:
+      - ./zmq-proxy/envs/master.env
     ports:
       - "3001:3001"
       - "3002:3002"
+  zmq-proxy-copy1:
+    build: ./zmq-proxy
+    env_file:
+      - ./zmq-proxy/envs/copy1.env
+    ports:
+      - "3011:3011"
+      - "3012:3012"
+  zmq-proxy-copy2:
+    build: ./zmq-proxy
+    env_file:
+      - ./zmq-proxy/envs/copy2.env
+    ports:
+      - "3021:3021"
+      - "3022:3022"
   logger:
     build: ./my-app
