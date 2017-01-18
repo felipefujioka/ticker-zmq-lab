@@ -10,11 +10,11 @@ public class App {
 
         //  Socket facing clients
         Socket sub = context.socket(ZMQ.XSUB);
-        sub.bind("tcp://*:3000");
+        sub.bind("tcp://*:3001");
 
         //  Socket facing services
         Socket pub = context.socket(ZMQ.XPUB);
-        pub.bind("tcp://*:3001");
+        pub.bind("tcp://*:3002");
 
         //  Start the proxy
         ZMQ.proxy (sub, pub, null);

@@ -11,7 +11,7 @@ services:
   zmq-proxy:
     build: ./zmq-proxy
     ports:
-      - "3000:3000"
       - "3001:3001"
+      - "3002:3002"
   logger:
     build: ./my-app

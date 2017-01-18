@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import * as IO from 'socket.io-client';
 
@@ -8,10 +8,11 @@ import * as IO from 'socket.io-client';
 export class TickService {
 
   server: any;
-  tickStream: BehaviorSubject<any>;
+  tickStream: Subject<any>;
+  connected: boolean = false;
 
   constructor() {
-    this.tickStream = new BehaviorSubject({});
+    this.tickStream = new Subject();
     this.server = this.create();
   }
 
@@ -29,16 +30,22 @@ export class TickService {
   }
 
   onConnect() {
-    this.tickStream.next("connected");
+    this.connected = true;
   }
 
-  onMessage(tick) {
-    console.log(JSON.parse(tick));
-    this.tickStream.next(JSON.parse(tick));
+  onMessage(data) {
+    console.log(JSON.parse(data));
+    let parsedData = JSON.parse(data);
+    let tick = {
+      stock: parsedData.topic.replace("TICK.", ""),
+      price: parsedData.message.price,
+      timestamp: parsedData.timestamp
+    }
+    this.tickStream.next(tick);
   }
 
   onDisconnect() {
-    this.tickStream.next("disconnected");
+    this.connected = false;
   }
 
 }
