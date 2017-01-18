@@ -1,9 +1,9 @@
 version: '2'
 services:
-  ticker:
-    build: ./ticker
-  ticker0:
-    build: ./ticker0
+  ticker-petr4:
+    build: ./ticker-petr4
+  ticker-vale5:
+    build: ./ticker-vale5
   broadcaster:
     build: ./broadcaster
     ports:
