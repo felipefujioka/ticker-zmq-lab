@@ -14,11 +14,13 @@ function addRandomVariationTo(price) {
   }
 }
 
+var seq = 0;
+
 setInterval(function() {
   var topic = "TICK.VALE5";
   var timestamp = Date.now();
   var message = {
-    "price": addRandomVariationTo(29.46)
+    "price": seq++
   }
 
   console.log('Sending tick for ', topic);

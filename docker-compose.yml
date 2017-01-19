@@ -4,12 +4,6 @@ services:
     build: ./ticker-petr4
   ticker-vale5:
     build: ./ticker-vale5
-  broadcaster:
-    build: ./broadcaster
-    ports:
-      - "4003:4003"
-    env_file:
-      - ./broadcaster/envs/generic.env
   broadcaster-petr4:
     build: ./broadcaster
     ports:
@@ -38,13 +32,5 @@ services:
       - "3011:3011"
       - "3012:3012"
       - "3013:3013"
-  zmq-proxy-2:
-    build: ./zmq-proxy
-    env_file:
-      - ./zmq-proxy/envs/proxy2.env
-    ports:
-      - "3021:3021"
-      - "3022:3022"
-      - "3023:3023"
   logger:
     build: ./my-app

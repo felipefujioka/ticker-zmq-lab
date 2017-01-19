@@ -14,11 +14,13 @@ function addRandomVariationTo(price) {
   }
 }
 
+var seq = 0;
+
 setInterval(function() {
   var topic = "TICK.PETR4";
   var timestamp = Date.now();
   var message = {
-    "price": addRandomVariationTo(15.88)
+    "price": seq++
   }
 
   console.log('Sending tick for ', topic);

@@ -54,7 +54,7 @@ public class App {
                     // receive message
                     message = cloudSub.recv(0);
                     more = cloudSub.hasReceiveMore();
-                    System.out.println("received from publisher: " + new String(message));
+                    // System.out.println("received from publisher: " + new String(message));
                     // Broker it
                     cloudPub.send(message, more ? ZMQ.SNDMORE : 0);
                     localPub.send(message, more ? ZMQ.SNDMORE : 0);
@@ -69,11 +69,11 @@ public class App {
                     // receive message
                     message = cloudPub.recv(0);
                     more = cloudPub.hasReceiveMore();
-                    System.out.println("received from subscriber: " + new String(message));
+                    // System.out.println("received from subscriber: " + new String(message));
                     // Broker it
                     cloudSub.send(message,  more ? ZMQ.SNDMORE : 0);
                     localPub.send(message,  more ? ZMQ.SNDMORE : 0);
-                    System.out.println("publishing to neighbor");
+                    // System.out.println("publishing to neighbor");
                     if(!more){
                         break;
                     }
@@ -82,12 +82,12 @@ public class App {
 
             if (items.pollin(2)) {
               byte[] receivedSide = localSub.recv(0);
-              System.out.println("received from neighbor: " + new String(receivedSide));
+              // System.out.println("received from neighbor: " + new String(receivedSide));
               if (new String(receivedSide).equals("SUBSCRIPTION")) {
-                System.out.println("its a subscription!");
+                // System.out.println("its a subscription!");
                 side = Side.SUBSCRIPTION;
               }else if (new String(receivedSide).equals("MESSAGE")){
-                System.out.println("its a message!");
+                // System.out.println("its a message!");
                 side = Side.MESSAGE;
               }
 
@@ -97,10 +97,10 @@ public class App {
                     more = localSub.hasReceiveMore();
                     // Broker it
                     if(side == Side.SUBSCRIPTION) {
-                      System.out.println("repassing to publishers: " + new String(message));  
+                      // System.out.println("repassing to publishers: " + new String(message));  
                       cloudSub.send(message,  more ? ZMQ.SNDMORE : 0);
                     }else if (side == Side.MESSAGE) {
-                      System.out.println("repassing to subscribers: " + new String(message));  
+                      // System.out.println("repassing to subscribers: " + new String(message));  
                       cloudPub.send(message,  more ? ZMQ.SNDMORE : 0);
                     }
                     
