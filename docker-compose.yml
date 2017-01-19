@@ -4,6 +4,12 @@ services:
     build: ./ticker-petr4
   ticker-vale5:
     build: ./ticker-vale5
+  broadcaster-generic:
+    build: ./broadcaster
+    ports:
+      - "4003:4003"
+    env_file:
+      - ./broadcaster/envs/generic.env  
   broadcaster-petr4:
     build: ./broadcaster
     ports:
