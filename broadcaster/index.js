@@ -12,7 +12,7 @@ sub.subscribe(process.env.CHANNEL);
 console.log('Worker connected to port ' + process.env.SUB_PORT);
 
 sub.on('message', function(topic, timestamp, message){
-  console.log('received a message related to:', topic.toString(), 'containing message:', message.toString());
+  console.log('received a message from proxy:', process.env.SUB_PORT);
   var wrapper = {
     topic: topic.toString(), 
     timestamp: timestamp.toString(),

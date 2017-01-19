@@ -17,7 +17,7 @@ public class App {
       String topic = subscriber.recvStr();
       String timestamp = subscriber.recvStr();
       String message = subscriber.recvStr();
-      System.out.println(topic + ": " + timestamp + ": " + message);
+      // System.out.println(topic + ": " + timestamp + ": " + message);
     }
 
     subscriber.close();

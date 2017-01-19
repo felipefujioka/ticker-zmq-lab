@@ -20,9 +20,9 @@ export class TickService {
   }
 
   create() {
-    var genericSocket = IO('ws://192.168.99.100:3003');
-    var petr4Socket = IO('ws://192.168.99.100:3004');
-    var vale5Socket = IO('ws://192.168.99.100:3005');
+    var genericSocket = IO('ws://192.168.99.100:4003');
+    var petr4Socket = IO('ws://192.168.99.100:4004');
+    var vale5Socket = IO('ws://192.168.99.100:4005');
 
     genericSocket.on('connect', this.onConnect.bind(this));
 

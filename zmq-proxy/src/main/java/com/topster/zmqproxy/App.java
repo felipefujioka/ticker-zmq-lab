@@ -6,27 +6,36 @@ import org.zeromq.ZMQ.Poller;
 import org.zeromq.ZMQ.Socket;
 
 public class App {
+
+  private enum Side {
+    NONE,
+    MESSAGE,
+    SUBSCRIPTION
+  };
+
   public static void main( String[] args) {
         Context context = ZMQ.context(1);
 
         //  Socket facing clients
-        Socket sub = context.socket(ZMQ.XSUB);
-        sub.bind("tcp://*:" + System.getenv("SUB_PORT"));
+        Socket cloudSub = context.socket(ZMQ.XSUB);
+        cloudSub.bind("tcp://*:" + System.getenv("SUB_PORT"));
 
         //  Socket facing services
-        Socket pub = context.socket(ZMQ.XPUB);
-        pub.setXpubVerbose(true);
-        pub.bind("tcp://*:" + System.getenv("PUB_PORT"));
+        Socket cloudPub = context.socket(ZMQ.XPUB);
+        cloudPub.setXpubVerbose(true);
+        cloudPub.bind("tcp://*:" + System.getenv("PUB_PORT"));
 
-        Socket backupPub = context.socket(ZMQ.PUB);
-        backupPub.connect("tcp://192.168.99.100:" + System.getenv("NEXT_PORT_PUB"));
+        Socket localPub = context.socket(ZMQ.PUB);
+        localPub.bind("tcp://*:" + System.getenv("LOCAL_PUB_PORT"));
 
-        Socket backupSub = context.socket(ZMQ.PUB);
-        backupSub.connect("tcp://192.168.99.100:" + System.getenv("NEXT_PORT_SUB"));
+        Socket localSub = context.socket(ZMQ.SUB);
+        localSub.subscribe("".getBytes());
+        localSub.connect("tcp://192.168.99.100:" + System.getenv("LOCAL_SUB_PORT"));
 
-        Poller items = new Poller (2);
-        items.register(sub, Poller.POLLIN);
-        items.register(pub, Poller.POLLIN);
+        Poller items = new Poller (3);
+        items.register(cloudSub, Poller.POLLIN);
+        items.register(cloudPub, Poller.POLLIN);
+        items.register(localSub, Poller.POLLIN);
 
         //  Start the proxy
         // ZMQ.proxy (sub, pub, backup);
@@ -36,31 +45,65 @@ public class App {
 
         while (!Thread.currentThread().isInterrupted()) {            
             //  poll and memorize multipart detection
+            Side side = Side.NONE;
             items.poll();
 
             if (items.pollin(0)) {
+              localPub.send("MESSAGE".getBytes(), ZMQ.SNDMORE);
                 while (true) {
                     // receive message
-                    message = sub.recv(0);
-                    more = sub.hasReceiveMore();
-                    System.out.println("incoming: " + new String(message));
+                    message = cloudSub.recv(0);
+                    more = cloudSub.hasReceiveMore();
+                    System.out.println("received from publisher: " + new String(message));
                     // Broker it
-                    pub.send(message, more ? ZMQ.SNDMORE : 0);
-                    backupPub.send(message, more ? ZMQ.SNDMORE : 0);
+                    cloudPub.send(message, more ? ZMQ.SNDMORE : 0);
+                    localPub.send(message, more ? ZMQ.SNDMORE : 0);
                     if(!more){
                         break;
                     }
                 }
             }
             if (items.pollin(1)) {
+                localPub.send("SUBSCRIPTION".getBytes(), ZMQ.SNDMORE);
                 while (true) {
                     // receive message
-                    message = pub.recv(0);
-                    more = pub.hasReceiveMore();
-                    System.out.println("outcoming: " + new String(message));
+                    message = cloudPub.recv(0);
+                    more = cloudPub.hasReceiveMore();
+                    System.out.println("received from subscriber: " + new String(message));
                     // Broker it
-                    sub.send(message,  more ? ZMQ.SNDMORE : 0);
-                    backupSub.send(message, more ? ZMQ.SNDMORE : 0);
+                    cloudSub.send(message,  more ? ZMQ.SNDMORE : 0);
+                    localPub.send(message,  more ? ZMQ.SNDMORE : 0);
+                    System.out.println("publishing to neighbor");
+                    if(!more){
+                        break;
+                    }
+                }
+            }
+
+            if (items.pollin(2)) {
+              byte[] receivedSide = localSub.recv(0);
+              System.out.println("received from neighbor: " + new String(receivedSide));
+              if (new String(receivedSide).equals("SUBSCRIPTION")) {
+                System.out.println("its a subscription!");
+                side = Side.SUBSCRIPTION;
+              }else if (new String(receivedSide).equals("MESSAGE")){
+                System.out.println("its a message!");
+                side = Side.MESSAGE;
+              }
+
+              while (true) {
+                    // receive message
+                    message = localSub.recv(0);
+                    more = localSub.hasReceiveMore();
+                    // Broker it
+                    if(side == Side.SUBSCRIPTION) {
+                      System.out.println("repassing to publishers: " + new String(message));  
+                      cloudSub.send(message,  more ? ZMQ.SNDMORE : 0);
+                    }else if (side == Side.MESSAGE) {
+                      System.out.println("repassing to subscribers: " + new String(message));  
+                      cloudPub.send(message,  more ? ZMQ.SNDMORE : 0);
+                    }
+                    
                     if(!more){
                         break;
                     }
@@ -69,8 +112,11 @@ public class App {
         }
 
         //  We never get here but clean up anyhow
-        sub.close();
-        pub.close();
+        cloudSub.close();
+        cloudPub.close();
+        localSub.close();
+        localPub.close();
+        
         context.term();
   }
 }

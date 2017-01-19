@@ -7,41 +7,44 @@ services:
   broadcaster:
     build: ./broadcaster
     ports:
-      - "3003:3003"
+      - "4003:4003"
     env_file:
       - ./broadcaster/envs/generic.env
   broadcaster-petr4:
     build: ./broadcaster
     ports:
-      - "3004:3004"
+      - "4004:4004"
     env_file:
       - ./broadcaster/envs/petr4.env
   broadcaster-vale5:
     build: ./broadcaster
     ports:
-      - "3005:3005"
+      - "4005:4005"
     env_file:
       - ./broadcaster/envs/vale5.env
-  zmq-proxy-master:
+  zmq-proxy-0:
     build: ./zmq-proxy
     env_file:
-      - ./zmq-proxy/envs/master.env
+      - ./zmq-proxy/envs/proxy0.env
     ports:
       - "3001:3001"
       - "3002:3002"
-  zmq-proxy-copy1:
+      - "3003:3003"
+  zmq-proxy-1:
     build: ./zmq-proxy
     env_file:
-      - ./zmq-proxy/envs/copy1.env
+      - ./zmq-proxy/envs/proxy1.env
     ports:
       - "3011:3011"
       - "3012:3012"
-  zmq-proxy-copy2:
+      - "3013:3013"
+  zmq-proxy-2:
     build: ./zmq-proxy
     env_file:
-      - ./zmq-proxy/envs/copy2.env
+      - ./zmq-proxy/envs/proxy2.env
     ports:
       - "3021:3021"
       - "3022:3022"
+      - "3023:3023"
   logger:
     build: ./my-app
