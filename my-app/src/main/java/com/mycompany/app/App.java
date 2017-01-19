@@ -12,11 +12,12 @@ public class App {
     ZMQ.Socket subscriber = context.socket(ZMQ.SUB);
     subscriber.connect("tcp://192.168.99.100:3002");
 
-    subscriber.subscribe("message".getBytes(ZMQ.CHARSET));
+    subscriber.subscribe("".getBytes(ZMQ.CHARSET));
     while (!Thread.currentThread().isInterrupted()) {
       String topic = subscriber.recvStr();
+      String timestamp = subscriber.recvStr();
       String message = subscriber.recvStr();
-      System.out.println(topic + ": " + message);
+      // System.out.println(topic + ": " + timestamp + ": " + message);
     }
 
     subscriber.close();

@@ -1,3 +1,19 @@
-<h2>{{lastTick.stock}}</h2>
-<p>{{lastTick.price | currency:'BRL':true}}</p>
-<p>{{lastTick.timestamp | date:'medium'}}</p>
+<ul>
+  <li *ngFor="let key of keys">
+    <h2>{{stocks[key].stock}}</h2>
+    <p>{{stocks[key].price | currency:'BRL':true}}</p>
+    <p>{{stocks[key].timestamp | date:'medium'}}</p>
+  </li>
+</ul>
+
+<div>
+  <h2>{{lastPetr4.stock}}</h2>
+  <p>{{lastPetr4.price | currency:'BRL':true}}</p>
+  <p>{{lastPetr4.timestamp | date:'medium'}}</p>
+</div>
+
+<div>
+  <h2>{{lastVale5.stock}}</h2>
+  <p>{{lastVale5.price | currency:'BRL':true}}</p>
+  <p>{{lastVale5.timestamp | date:'medium'}}</p>
+</div>
