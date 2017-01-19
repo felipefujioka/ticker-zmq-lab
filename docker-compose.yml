@@ -34,3 +34,8 @@ services:
       - "3013:3013"
   logger:
     build: ./my-app
+  haproxy:
+    build: ./haproxy
+    ports:
+      - "5001:5001"
+      - "5002:5002"

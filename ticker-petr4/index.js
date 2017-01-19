@@ -1,8 +1,8 @@
 var zmq = require('zeromq')
   , pub = zmq.socket('pub');
 
-pub.connect('tcp://192.168.99.100:3001');
-console.log('Producer connected to port 3001');
+pub.connect('tcp://192.168.99.100:5001');
+console.log('Producer connected to port 5001');
 
 function addRandomVariationTo(price) {
   var delta = Math.round(Math.random() * 100) / 100;
