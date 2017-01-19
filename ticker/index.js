@@ -17,12 +17,13 @@ function addRandomVariationTo(price) {
 var seq = 0;
 
 setInterval(function() {
-  var topic = "TICK.VALE5";
+  var topic = "TICK." + process.env.SECURITY_SYMBOL;
   var timestamp = Date.now();
   var message = {
-    "price": seq++
+    "price": addRandomVariationTo(+process.env.BASE_PRICE),
+    "seq": seq++
   }
 
-  console.log('Sending tick for ', topic);
+  console.log('o: ' + topic + ' ' + timestamp + ' ' + JSON.stringify(message));
   pub.send([topic, timestamp, JSON.stringify(message)]);
-}, 1000);
+}, +process.env.TICK_PERIOD);

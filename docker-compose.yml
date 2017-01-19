@@ -1,21 +1,18 @@
 version: '2'
 services:
+  haproxy:
+    build: ./haproxy
+    ports:
+      - "5001:5001"
+      - "5002:5002"
   ticker-petr4:
-    build: ./ticker-petr4
+    build: ./ticker
+    env_file:
+      - ./ticker/envs/petr4.env
   ticker-vale5:
-    build: ./ticker-vale5
-  broadcaster-petr4:
-    build: ./broadcaster
-    ports:
-      - "4004:4004"
+    build: ./ticker
     env_file:
-      - ./broadcaster/envs/petr4.env
-  broadcaster-vale5:
-    build: ./broadcaster
-    ports:
-      - "4005:4005"
-    env_file:
-      - ./broadcaster/envs/vale5.env
+      - ./ticker/envs/vale5.env
   zmq-proxy-0:
     build: ./zmq-proxy
     env_file:
@@ -32,10 +29,15 @@ services:
       - "3011:3011"
       - "3012:3012"
       - "3013:3013"
-  logger:
-    build: ./my-app
-  haproxy:
-    build: ./haproxy
+  broadcaster-petr4:
+    build: ./broadcaster
     ports:
-      - "5001:5001"
-      - "5002:5002"
+      - "4004:4004"
+    env_file:
+      - ./broadcaster/envs/petr4.env
+  broadcaster-vale5:
+    build: ./broadcaster
+    ports:
+      - "4005:4005"
+    env_file:
+      - ./broadcaster/envs/vale5.env

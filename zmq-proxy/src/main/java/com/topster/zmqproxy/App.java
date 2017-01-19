@@ -54,7 +54,7 @@ public class App {
           // receive message
           message = cloudSub.recv(0);
           more = cloudSub.hasReceiveMore();
-          System.out.println("received from publisher: " + new String(message));
+          // System.out.println("received from publisher: " + new String(message));
           // Broker it
           cloudPub.send(message, more ? ZMQ.SNDMORE : 0);
           localPub.send(message, more ? ZMQ.SNDMORE : 0);
