@@ -5,14 +5,14 @@ services:
     ports:
       - "5001:5001"
       - "5002:5002"
-  ticker-petr4:
-    build: ./ticker
+  java-ticker-petr4:
+    build: ./java-ticker
     env_file:
-      - ./ticker/envs/petr4.env
-  ticker-vale5:
-    build: ./ticker
+      - ./java-ticker/envs/petr4.env
+  java-ticker-vale5:
+    build: ./java-ticker
     env_file:
-      - ./ticker/envs/vale5.env
+      - ./java-ticker/envs/vale5.env
   zmq-proxy-0:
     build: ./zmq-proxy
     env_file:
