@@ -3,6 +3,7 @@ services:
   haproxy:
     build: ./haproxy
     ports:
+      - "1936:1936"
       - "5001:5001"
       - "5002:5002"
   ticker-petr4:
@@ -34,7 +35,7 @@ services:
     ports:
       - "4003:4003"
     env_file:
-      - ./broadcaster/envs/generic.env  
+      - ./broadcaster/envs/generic.env
   broadcaster-petr4:
     build: ./broadcaster
     ports:
