@@ -47,6 +47,7 @@ public class App {
         while (true) {
           // receive message
           message = cloudSub.recv(0);
+          System.out.println("r: " + new String(message));
           more = cloudSub.hasReceiveMore();
           // System.out.println("received from publisher: " + new String(message));
           // Broker it
@@ -63,6 +64,7 @@ public class App {
         while (true) {
           // receive message
           message = cloudPub.recv(0);
+          System.out.println("r: " + new String(message));
           more = cloudPub.hasReceiveMore();
           // Broker it
           cloudSub.send(message,  more ? ZMQ.SNDMORE : 0);
@@ -80,6 +82,7 @@ public class App {
         while (true) {
           // receive message
           message = localSub.recv(0);
+          System.out.println("l: " + new String(message));
           more = localSub.hasReceiveMore();
           // Broker it
           if (destination == Destination.SUBSCRIBERS) {
