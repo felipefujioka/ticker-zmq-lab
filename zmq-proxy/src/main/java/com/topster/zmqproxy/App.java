@@ -15,11 +15,11 @@ public class App {
   public static void main(String[] args) {
     Context context = ZMQ.context(1);
 
-    //  Socket facing clients
+    //  Socket facing publishers
     Socket cloudSub = context.socket(ZMQ.XSUB);
     cloudSub.bind("tcp://*:" + System.getenv("SUB_PORT"));
 
-    //  Socket facing services
+    //  Socket facing subscribers
     Socket cloudPub = context.socket(ZMQ.XPUB);
     cloudPub.setXpubVerbose(true);
     cloudPub.bind("tcp://*:" + System.getenv("PUB_PORT"));
