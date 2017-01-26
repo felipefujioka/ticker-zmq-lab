@@ -1,0 +1,14 @@
+version: '2'
+services:
+  producer-server:
+    build:
+      context: .
+    image: producer-server
+    ports:
+      - "12001:12001"
+    entrypoint: java -jar server_producer/target/image/bin/server.jar clean
+  consumer-server:
+    build:
+      context: .
+    image: consumer-server
+    entrypoint: java -jar server_consumer/target/image/bin/server.jar clean

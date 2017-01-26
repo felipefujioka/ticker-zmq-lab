@@ -6,14 +6,19 @@ services:
       - "1936:1936"
       - "5001:5001"
       - "5002:5002"
-  java-ticker-petr4:
-    build: ./java-ticker
+  # java-ticker-petr4:
+  #   build: ./java-ticker
+  #   env_file:
+  #     - ./java-ticker/envs/petr4.env
+  # java-ticker-vale5:
+  #   build: ./java-ticker
+  #   env_file:
+  #     - ./java-ticker/envs/vale5.env
+  fabric3-ticker-petr4:
+    build: ./fabric3-components
     env_file:
-      - ./java-ticker/envs/petr4.env
-  java-ticker-vale5:
-    build: ./java-ticker
-    env_file:
-      - ./java-ticker/envs/vale5.env
+      - ./fabric3-components/envs/petr4.env
+    entrypoint: java -jar server_producer/target/image/bin/server.jar
   zmq-proxy-0:
     build: ./zmq-proxy
     env_file:
