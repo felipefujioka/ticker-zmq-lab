@@ -23,7 +23,7 @@
     <artifactId>fabric3-samples</artifactId>
     <version>3.0.0</version>
     <name>Fabric3 Samples Parent POM</name>
-    <description>Fabric3 Samples Parent POM.</description>
+    <!-- <description>Fabric3 Samples Parent POM.</description> -->
     <packaging>pom</packaging>
 
     <properties>
@@ -45,6 +45,9 @@
     <modules>
         <module>zmq_producer</module>
         <module>server_producer</module>
+        <module>zmq_consumer</module>
+        <module>server_consumer</module>
+
         <module>shared_module</module>
     </modules>
 

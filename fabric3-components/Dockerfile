@@ -3,9 +3,11 @@ FROM maven:3.2-jdk-8
 ARG server_path
 
 COPY pom.xml .
-
-COPY server_producer/pom.xml server_producer/pom.xml
 COPY zmq_producer/pom.xml zmq_producer/pom.xml
+COPY zmq_consumer/pom.xml zmq_consumer/pom.xml
+COPY server_producer/pom.xml server_producer/pom.xml
+COPY server_consumer/pom.xml server_consumer/pom.xml
+COPY shared_module/pom.xml shared_module/pom.xml
 
 RUN mvn validate
 

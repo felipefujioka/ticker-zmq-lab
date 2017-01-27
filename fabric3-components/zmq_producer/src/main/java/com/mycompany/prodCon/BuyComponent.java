@@ -21,6 +21,7 @@ public class BuyComponent implements Runnable {
     System.out.println("ticking for " + System.getenv("SECURITY_SYMBOL"));
     Tick tick = new Tick();
     tick.price = Math.random();
+    System.out.println("new tick: " + tick);
     buyChannel.publish(new byte[][] {
       ("TICK."+System.getenv("SECURITY_SYMBOL")).getBytes(),
       new Long(System.currentTimeMillis()).toString().getBytes(),

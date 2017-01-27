@@ -1,5 +1,5 @@
 <contribution xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
               xmlns:f3="urn:fabric3.org"
               f3:description="FastQuote API module">
-    <import.java package="com.shared"/>
+    <import.java package="com.shared" />
 </contribution>
