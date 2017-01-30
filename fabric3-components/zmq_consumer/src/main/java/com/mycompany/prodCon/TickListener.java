@@ -11,9 +11,9 @@ import com.google.gson.Gson;
 import com.shared.Tick;
 
 @Component(composite= "{urn:mycompany.com}ChannelComposite")
-public class BuyListener {
+public class TickListener {
 
-  @Consumer(source="BuyChannel")
+  @Consumer(source="TickChannel")
   public void onEvent(byte[][] message) {
 
     System.out.println(new String(message[0]));

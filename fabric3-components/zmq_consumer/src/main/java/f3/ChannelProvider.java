@@ -20,7 +20,7 @@ public class ChannelProvider {
   @Provides
   public static Composite createComposite() {
       QName name = new QName("urn:mycompany.com", "ChannelComposite");
-      ChannelBuilder channelBuilder = ChannelBuilder.newBuilder("BuyChannel");
+      ChannelBuilder channelBuilder = ChannelBuilder.newBuilder("TickChannel");
       CompositeBuilder compositeBuilder = CompositeBuilder.newBuilder(name);
       List<String> addresses = Collections.singletonList(PROVIDER_CHANNEL_ADDRESS);
       ZeroMQBinding binding = ZeroMQBindingBuilder.newBuilder().address(addresses).build();

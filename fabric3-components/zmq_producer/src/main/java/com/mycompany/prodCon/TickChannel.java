@@ -1,6 +1,6 @@
 package com.mycompany.prodCon;
 
-public interface BuyChannel {
+public interface TickChannel {
 
     void publish(byte[][] data);
 
